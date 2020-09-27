@@ -1,0 +1,18 @@
+youtube-dl -i --geo-bypass --yes-playlist -x --audio-format mp3 --embed-thumbnail --add-metadata -a '~/self/youtube_process_link_list.txt' -o '~/Music/%(title)s.%(ext)s'
+
+# -i: ignore errors
+# --geo-bypass
+# --playlist-start NUMBER
+# --dateafter: dowload only videos uploaded on or after this date
+# --yes-playlist: dolwoad playlist if url is ambigious
+# -- output Template: Output filename template, see the OUTPUT TEMPLATE for all the info
+# --write-thumbnail
+# -f FORMATL veifor format code
+# --write-sub: write subtitle file
+# --write-auto-sub write automatically generated subtitle file
+# --al-subs dowlaod all the avialable subtitles of the vido
+# --username USERNAME
+# -x: convert viedo files to audio-only
+# --audio-fomat FORMAT
+# --embed-thumbnail: embed thumbnail into audio as cover art
+# --add-metadata
