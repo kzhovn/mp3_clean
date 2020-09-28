@@ -19,7 +19,7 @@ for file in os.listdir(file_list):
         mp3_artist = mp3_artist.split(",", 1)[0]                                    #throw away everything after comma
         mp3_artist = string.capwords(mp3_artist.strip())
 
-    if not mp3_artist:
+    if not mp3_artist or mp3_artist == " ":
         mp3.tag.artist = "Unknown"
 
     ###fix title
@@ -29,15 +29,16 @@ for file in os.listdir(file_list):
         mp3_artist_stripped = re.sub(r"([\+-]+)", "", mp3_artist)
         title_re = re.compile(
                     fr"""((-\s*)?(\s+by\s+)?({re.escape(mp3_artist)}|{re.escape(mp3_artist_stripped)})(\s*-)?)| #remove artist name
-                    ((with\s+)?(on-screen\s*)?lyric[s]?)|
-                    (vevo)|(music video)|(video)|(audio)|(official)|(\sHD)|(HQ)|\"|\||\\\\|\/\/
+                    ((with\s+)?(on[-\s]screen\s*)?lyric[s]?)|
+                    (vevo)|(music video)|(((\()|(\[)).*video(\)|\]))|
+                    (audio)|(official)|(HD)|(HQ)|\"|\||\\\\|\/\/|\'\'
                     """ , re.VERBOSE | re.IGNORECASE)
         mp3_title = re.sub(title_re, "", mp3.tag.title) 
 
-        mp3_title = re.sub(r"(?i)(\(\s*\))|(\[\s*\])|(^\s*:)|(^\s*-)|((\(|\[)\s*(music)\s*(\)|\]))", "", mp3_title) #fix messes from above
+        mp3_title = re.sub(r"(?i)(\(\s*\))|(\[\s*\])|(^\s*:)|(^\s*-$)|(-\s*$)|((\(|\[)\s*(music)\s*(\)|\]))", "", mp3_title) #fix messes from above
         mp3_title = re.sub(r"\s\s+", " ", mp3_title).strip() #extra whitespace
 
-    if not mp3_title:
+    if not mp3_title or mp3_title == " ":
         mp3.tag.title = "Unknown"
 
     ###print & save
