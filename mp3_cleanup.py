@@ -1,10 +1,12 @@
-import eyed3 #needs latest version - pip install, not apt-get
+import eyed3 #needs latest version - pip install
 import os
 import re
 import string
 
 dir = os.path.expanduser("~/Music")
 file_list = os.fsencode(dir)
+
+track_list = []
 
 for file in os.listdir(file_list):
     filename = os.fsdecode(file)
@@ -68,3 +70,10 @@ for file in os.listdir(file_list):
             mp3.tag.title = mp3_title
 
             mp3.tag.save()     #COMMENT OUT TO TEST CHANGES
+
+    track_list.append((mp3.tag.title, mp3.tag.artist))
+
+###print duplicates (https://www.techiedelight.com/find-duplicate-items-python-list/)
+visited = set()
+duplicate_songs = {song for song in track_list if song in visited or (visited.add(song) or False)}
+print("Duplicate songs: " + str(duplicate_songs))
