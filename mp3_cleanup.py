@@ -80,3 +80,5 @@ for file in os.listdir(file_list):
 visited = set()
 duplicate_songs = {song for song in track_list if song in visited or (visited.add(song) or False)}
 print("Duplicate songs: " + str(list(duplicate_songs))) #I think this is a stupid way to print this
+
+###TODO when I'm bored: print if artist of any song is in title, except in ft. or cover parentheses, probably also ignore freeze?
